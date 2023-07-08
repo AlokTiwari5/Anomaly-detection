@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anomaly Detection Results</title>
+    <style>
+        body {
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/static/background.jpg");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            margin-bottom:20px;
+            text-align: center;
+            color: black;
+            font-size: 40px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-left:10%;
+            width: 80%;
+            background-color: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        p {
+            text-align: center;
+            color: black;
+            font-size: 18px;
+        }
+        div{
+            background-color:white;
+            margin: 15% 8%;
+            border-radius: 10px;
+            padding: 4% 0;
+            opacity:0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="div">
+    <h1>Anomaly Detection Results</h1>
+    {% if anomalies.empty %}
+        <p>No anomalies detected.</p>
+    {% else %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Track ID</th>
+                    <th>Speed</th>
+                    <th>Temperature</th>
+                    <th>Vibration</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for _, row in anomalies.iterrows() %}
+                    <tr>
+                        <td>{{ row['timestamp'] }}</td>
+                        <td>{{ row['track_id'] }}</td>
+                        <td>{{ row['speed'] }}</td>
+                        <td>{{ row['temperature'] }}</td>
+                        <td>{{ row['vibration'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    </div>
+</body>
+</html>
